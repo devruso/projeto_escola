@@ -9,7 +9,6 @@ const Turma = connection.define("turma", {
     ano:{
         type:DataTypes.STRING(130),
         allowNull:false,
-        unique:true
     },
 })
 

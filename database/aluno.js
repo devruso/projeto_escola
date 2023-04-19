@@ -16,7 +16,7 @@ const Aluno = connection.define("aluno", {
         allowNull:false,
     },
     media:{
-        type:DataTypes.NUMBER,
+        type:DataTypes.FLOAT,
         allowNull:false
     }
 })

@@ -1,17 +1,18 @@
-const {Turma} = require("./database/turma")
-const {Aluno} = require("./database/aluno")
-const {Professor} = require("./database/professor");
+require("dotenv").config();
+
+
 const express = require("express");
 const { connection, authenticate } = require("./database/database");
 const morgan = require("morgan");
-require("dotenv").config();
+
 // Configuração DB
 authenticate(connection);
-
+const {Turma} = require("./database/turma")
+const {Aluno} = require("./database/aluno")
+const {Professor} = require("./database/professor");
 // Configuração do app
 const app = express();
 app.use(express.json());
-
 
 
 //Rotas
