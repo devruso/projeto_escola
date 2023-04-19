@@ -10,13 +10,15 @@ authenticate(connection);
 const {Turma} = require("./database/turma")
 const {Aluno} = require("./database/aluno")
 const {Professor} = require("./database/professor");
+
 // Configuração do app
 const app = express();
 app.use(express.json());
 
+const rotaAlunos = require("./routes/alunos");
 
 //Rotas
-
+app.use(rotaAlunos);
 
 app.listen(3000, () =>{
     connection.sync({force:true});
