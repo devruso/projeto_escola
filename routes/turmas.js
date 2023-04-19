@@ -10,17 +10,17 @@ router.get("/turmas", async (req, res) =>{
     res.json(listaTurmas);
 });
 
-
+// Adicionar ProfessoreId
 router.post("/turmas", async (req, res) =>{
     const {nome, ano} = req.body;
+
     try{
         const novaTurma = await Turma.create({nome, ano});
         res.json(novaTurma);
     }catch(err){
         console.log(err);
-        res.status(500).json({message: "Algo errado ocorreu"})
+        res.status(500).json({message: "Algo errado ocorreu"});
     }
-    
 })
 
 module.exports = router;

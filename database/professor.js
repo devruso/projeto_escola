@@ -1,7 +1,7 @@
 const {DataTypes} = require("sequelize");
 const {connection} = require("./database");
 
-const Professor = connection.define("professor", {
+const Professor = connection.define("professores", {
     nome:{
         type: DataTypes.STRING(130),
         allowNull:false
@@ -15,11 +15,8 @@ const Professor = connection.define("professor", {
         type: DataTypes.STRING(20),
         allowNull:false,
     },
-    materia:{
-        type:DataTypes.STRING(100),
-        allowNull:false
-    }
-})
+});
+
 const Turma = require("./turma");
 
 Professor.hasOne(Turma);

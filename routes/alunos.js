@@ -30,7 +30,7 @@ router.post("/alunos/:turmaId", async (req, res) =>{
 try{  
     if(turma){
         const novoAluno = await Aluno.create({nome, email, telefone, media, turmaId},{include:[Turma]});
-        res.status(201).json(novoAluno);B
+        res.status(201).json(novoAluno);
     }else{
         console.log(err);
         res.status(500).json({message: "Turma não encontrada"});
