@@ -16,9 +16,11 @@ const app = express();
 app.use(express.json());
 
 const rotaAlunos = require("./routes/alunos");
+const rotaTurmas = require("./routes/turmas");
 
 //Rotas
 app.use(rotaAlunos);
+app.use(rotaTurmas);
 
 app.listen(3000, () =>{
     connection.sync({force:true});
