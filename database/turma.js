@@ -15,6 +15,6 @@ const Turma = connection.define("turma", {
 const Aluno = require("./aluno");
 
 Turma.hasMany(Aluno);
-Aluno.belongsTo(Turma);
+Aluno.belongsTo(Turma, {onDelete:"CASCADE"});
 
 module.exports = Turma;

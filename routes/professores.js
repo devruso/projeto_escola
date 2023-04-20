@@ -23,7 +23,8 @@ router.get("/professores/:id", async (req, res) =>{
 
 router.post("/professores/:turmaId", async (req, res) =>{
     const {nome, email, telefone} = req.body;
-    const {turmaId} = req.params;
+    const turmaId = parseInt(req.params.turmaId, 10);
+    
     try{
         const findTurma = await Turma.findByPk(turmaId);
         if(findTurma){

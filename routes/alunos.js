@@ -6,10 +6,12 @@ const {Router} = require("express");
 const router = Router();
 
 // Listar alunos
+
 router.get("/alunos", async (req,res) =>{
     const alunos = await Aluno.findAll();
     res.json(alunos);
 });
+
 
 router.get("/alunos/:id", async (req,res) =>{
     const {id} = req.params;
@@ -25,18 +27,18 @@ router.get("/alunos/:id", async (req,res) =>{
 //Corrigir a parte de "não achar turma"
 router.post("/alunos/:turmaId", async (req, res) =>{
     const {nome, email, telefone, media} = req.body;
-    const {turmaId} = Number(req.params.turmaId);
+    const turmaId = parseInt(req.params.turmaId, 10);
     try{  
-    const turma = await Turma.findByPk(req.params.turmaId);
-    if(turma){
+    const findTurma = await Turma.findByPk(turmaId);
+    if(findTurma){
         const novoAluno = await Aluno.create({nome, email, telefone, media, turmaId},{include:[Turma]});
         res.status(201).json(novoAluno);
     }else{
-        res.status(500).json({message: "Turma não encontrada"});
+        res.status(404).json({message: "Turma não encontrada"});
     }
 }catch(err){
     console.log(err);
-    res.status(500).json({message: "Algo errado correu"});
+    res.status(500).json({message: "Algo errado ocorreu"});
 }
 });
 

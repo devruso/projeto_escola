@@ -1,0 +1,145 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "title": "API de Gerenciamento de Turmas",
+        "description": "Esta API permite gerenciar turmas, alunos e professores",
+        "version": "1.0.0"
+    },
+    "host": "localhost:3000",
+    "basePath": "/api",
+    "schemes": [
+        "http"
+    ],
+    "paths": {
+        "/turmas": {
+            "get": {
+                "tags": [
+                    "Turmas"
+                ],
+                "summary": "Listar todas as turmas",
+                "responses": {
+                    "200": {
+                        "description": "Turmas encontradas",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/Turma"
+                            }
+                        }
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "Turmas"
+                ],
+                "summary": "Adicionar uma nova turma",
+                "parameters": [
+                    {
+                        "name": "Turma",
+                        "in": "body",
+                        "description": "Informações da nova turma",
+                        "schema": {
+                            "$ref": "#/definitions/TurmaInput"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Nova turma adicionada com sucesso",
+                        "schema": {
+                            "$ref": "#/definitions/Turma"
+                        }
+                    },
+                    "500": {
+                        "description": "Erro ao adicionar nova turma"
+                    }
+                }
+            }
+        },
+        "/turmas/{id}": {
+            "get": {
+                "tags": [
+                    "Turmas"
+                ],
+                "summary": "Buscar turma por ID",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "type": "integer"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Turma encontrada",
+                        "schema": {
+                            "$ref": "#/definitions/Turma"
+                        }
+                    },
+                    "404": {
+                        "description": "Turma não encontrada"
+                    }
+                }
+            },
+            "put": {
+                "tags": [
+                    "Turmas"
+                ],
+                "summary": "Atualizar informações da turma",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "type": "integer"
+                    },
+                    {
+                        "name": "Turma",
+                        "in": "body",
+                        "description": "Novas informações da turma",
+                        "schema": {
+                            "$ref": "#/definitions/TurmaInput"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Turma atualizada com sucesso"
+                    },
+                    "404": {
+                        "description": "Turma não encontrada"
+                    },
+                    "500": {
+                        "description": "Erro ao atualizar turma"
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "Turmas"
+                ],
+                "summary": "Deletar turma por Id",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "type": "integer"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Turma deletada com sucesso"
+                    },
+                    "404": {
+                        "description": "Turma não encontrada"
+                    }
+                }
+            }
+        }
+    }
+}
+    
+    

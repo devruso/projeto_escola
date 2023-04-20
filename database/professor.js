@@ -21,6 +21,6 @@ const Turma = require("./turma");
 
 
 Turma.hasOne(Professor);
-Professor.belongsTo(Turma, {onDelete:"DELETE"});
+Professor.belongsTo(Turma, {onDelete:"CASCADE"});
 
 module.exports = Professor;
