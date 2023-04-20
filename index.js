@@ -8,15 +8,13 @@ const morgan = require("morgan");
 // Configuração DB
 authenticate(connection);
 
-const swaggerJsdoc = require("swagger-jsdoc"),swaggerUi = require("swagger-ui-express");
-const options = require("./swaggerConfig");
+const swaggerUi = require("swagger-ui-express");
 
 // Configuração do app
 const app = express();
 app.use(express.json());
 
-const especificacoes = swaggerJsdoc(options);
-
+const swaggerJson = require("./swagger.json");
 const rotaAlunos = require("./routes/alunos");
 const rotaTurmas = require("./routes/turmas");
 const rotaProfessores = require("./routes/professores");
@@ -25,7 +23,7 @@ const rotaProfessores = require("./routes/professores");
 app.use(rotaAlunos);
 app.use(rotaTurmas);
 app.use(rotaProfessores);
-app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(especificacoes));
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerJson));
 
 
 
