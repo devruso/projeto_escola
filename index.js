@@ -9,7 +9,7 @@ const morgan = require("morgan");
 authenticate(connection);
 
 const swaggerJsdoc = require("swagger-jsdoc"),swaggerUi = require("swagger-ui-express");
-const options = require("./swagger.json");
+const options = require("./swaggerConfig");
 
 // Configuração do app
 const app = express();
