@@ -25,17 +25,15 @@ router.get("/alunos/:id", async (req,res) =>{
 //Corrigir a parte de "não achar turma"
 router.post("/alunos/:turmaId", async (req, res) =>{
     const {nome, email, telefone, media} = req.body;
-    const {turmaId} = req.params;
+    const {turmaId} = Number(req.params.turmaId);
+    try{  
     const turma = await Turma.findByPk(req.params.turmaId);
-try{  
     if(turma){
         const novoAluno = await Aluno.create({nome, email, telefone, media, turmaId},{include:[Turma]});
         res.status(201).json(novoAluno);
     }else{
-        console.log(err);
         res.status(500).json({message: "Turma não encontrada"});
     }
-
 }catch(err){
     console.log(err);
     res.status(500).json({message: "Algo errado correu"});

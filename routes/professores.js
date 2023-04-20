@@ -11,11 +11,27 @@ router.get("/professores", async (req,res) =>{
     res.json(professores);
 });
 
-router.post("/professores", async (req, res) =>{
-    const {nome, email, telefone} = req.body
+router.get("/professores/:id", async (req, res) =>{
+    const {id} = req.params;
+    const findProf = await Professor.findByPk(id);
+    if(findProf){
+        res.json(findProf);
+    }else{
+        res.json({message: "Professor não encontrado"});
+    }
+})
+
+router.post("/professores/:turmaId", async (req, res) =>{
+    const {nome, email, telefone} = req.body;
+    const {turmaId} = req.params;
     try{
-        const novoProfessor = await Professor.create({nome, email, telefone});
-        res.json(novoProfessor);
+        const findTurma = await Turma.findByPk(turmaId);
+        if(findTurma){
+            const novoProfessor = await Professor.create({nome, email, telefone, turmaId}, {include:[Turma]});
+            res.json(novoProfessor);
+        }else{
+            res.status(404).json({message:"Turma não encontrada"});
+        }
     }catch(err){
         console.log(err);
         res.status(500).json({message: "Algo errado ocorreu"});

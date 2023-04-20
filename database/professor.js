@@ -19,7 +19,8 @@ const Professor = connection.define("professores", {
 
 const Turma = require("./turma");
 
-Professor.hasOne(Turma);
-Turma.belongsTo(Professor);
+
+Turma.hasOne(Professor);
+Professor.belongsTo(Turma, {onDelete:"DELETE"});
 
 module.exports = Professor;
