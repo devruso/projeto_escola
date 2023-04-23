@@ -1,108 +1,56 @@
 {
-    "swagger": "2.0",
-    "info": {
-      "version": "1.0.0",
-      "title": "API de Gerenciamento de Turmas",
-      "description": "Esta API permite gerenciar turmas, alunos e professores"
-    },
-    "host": "localhost:3000",
-    "basePath": "/api",
-    "schemes": ["http"],
-    "paths": {
-      "/alunos": {
-        "get": {
-          "tags": ["Alunos"],
-          "summary": "Listar alunos",
-          "description": "Retorna uma lista de alunos",
-          "produces": ["application/json"],
-          "responses": {
-            "200": {
-              "description": "OK",
-              "schema": {
-                "type": "array",
-                "items": {
-                  "type": "object",
-                  "properties": {
-                    "nome": {
-                      "type": "string",
-                      "example": "Laura Xavier"
-                    },
-                    "email": {
-                      "type": "string",
-                      "example": "laura.ac.xavier@gmail.com"
-                    },
-                    "telefone": {
-                      "type": "string",
-                      "example": "48-99157-4820"
-                    },
-                    "media": {
-                      "type": "float",
-                      "example": 8.5
-                    }
-                  }
+  "swagger": "2.0",
+  "info": {
+    "version": "1.0.0",
+    "title": "API de Gerenciamento de Turmas",
+    "description": "Esta API permite gerenciar turmas, alunos e professores"
+  },
+  "host": "localhost:3000",
+  "basePath": "/",
+  "schemes": ["http"],
+  "paths": {
+    "/alunos": {
+      "get": {
+        "tags": ["Alunos"],
+        "summary": "Listar alunos",
+        "description": "Retorna uma lista de alunos",
+        "produces": ["application/json"],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "aluno",
+            "description": "Objeto de aluno para adicionar",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "properties": {
+                "nome": {
+                  "type": "string",
+                  "example": "Laura Xavier"
+                },
+                "email": {
+                  "type": "string",
+                  "example": "laura.ac.xavier@gmail.com"
+                },
+                "telefone": {
+                  "type": "string",
+                  "example": "48-99157-4820"
+                },
+                "media": {
+                  "type": "number",
+                  "format": "float",
+                  "example": 8.5
                 }
               }
             }
           }
-        },
-  
-        "post": {
-          "tags": ["Alunos"],
-          "summary": "Adicionar alunos",
-          "description": "Adiciona um novo aluno ao banco de dados",
-          "produces": ["application/json"],
-          "responses": {
-            "200": {
-              "description": "OK",
-              "schema": {
-                "type": "array",
-                "items": {
-                  "type": "object",
-                  "properties": {
-                    "nome": {
-                      "type": "string",
-                      "example": "Laura Xavier"
-                    },
-                    "email": {
-                      "type": "string",
-                      "example": "laura.ac.xavier@gmail.com"
-                    },
-                    "telefone": {
-                      "type": "string",
-                      "example": "48-99157-4820"
-                    },
-                    "media": {
-                      "type": "float",
-                      "example": 8.5
-                    }
-                  }
-                }
-              }
-            }
-          }
-        }
-      },
-  
-      "/alunos/{id}": {
-        "get": {
-          "tags": ["Alunos"],
-          "summary": "Obter um aluno pelo ID",
-          "description": "Retorna os detalhes de um aluno específico com base no ID fornecido.",
-          "produces": ["application/json"],
-          "parameters": [
-            {
-              "name": "id",
-              "in": "path",
-              "description": "ID do aluno a ser obtido",
-              "required": true,
-              "type": "integer",
-              "format": "int64"
-            }
-          ],
-          "responses": {
-            "200": {
-              "description": "OK",
-              "schema": {
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "type": "array",
+              "items": {
                 "type": "object",
                 "properties": {
                   "nome": {
@@ -118,223 +66,377 @@
                     "example": "48-99157-4820"
                   },
                   "media": {
-                    "type": "number",
-                    "format": "float",
+                    "type": "float",
                     "example": 8.5
                   }
                 }
               }
-            },
-            "404": {
-              "description": "Aluno não encontrado"
-            }
-          }
-        },
-  
-        "put": {
-          "summary": "Atualizar os dados de um aluno baseado em seu ID",
-          "tags": ["Alunos"],
-          "description": "Atualiza os dados de um aluno baseado em seu ID",
-          "produces": ["application/json"],
-          "responses": {
-            "200": {
-              "description": "OK",
-              "schema": {
-                "type": "array",
-                "items": {
-                  "type": "object",
-                  "properties": {
-                    "nome": {
-                      "type": "string",
-                      "example": "João -> Lucas"
-                    },
-                    "idade": {
-                      "type": "integer",
-                      "example": 25
-                    },
-                    "sexo": {
-                      "type": "string",
-                      "example": "M"
-                    }
-                  }
-                }
-              }
-            },
-            "404": {
-              "description": "Not Found",
-              "schema": {
-                "type": "object",
-                "properties": {
-                  "message": {
-                    "type": "string",
-                    "example": "Aluno não encontrado"
-                  }
-                }
-              }
-            },
-            "500": {
-              "description": "Internal Server Error",
-              "schema": {
-                "type": "object",
-                "properties": {
-                  "message": {
-                    "type": "string",
-                    "example": "Algo errado ocorreu"
-                  }
-                }
-              }
-            }
-          }
-        },
-  
-        "delete": {
-          "summary": "Deletar permanentemente os dados de um aluno baseado em seu ID",
-          "tags": ["Alunos"],
-          "description": "Deleta os dados de um aluno baseado em seu ID",
-          "produces": ["application/json"],
-          "parameters": [
-            {
-              "name": "id",
-              "in": "path",
-              "description": "ID do aluno a ser deletado",
-              "required": true,
-              "type": "integer"
-            }
-          ],
-          "responses": {
-            "204": {
-              "description": "Aluno não encontrado"
-            },
-            "404": {
-              "description": "Aluno não encontrado"
             }
           }
         }
       },
-  
-      "/turma": {
-        "get": {
-          "summary": "Listar todas as turmas",
-          "tags": ["Turma"],
-          "produces": ["application/json"],
-          "responses": {
-            "200": {
-              "description": "Lista de turmas recuperada com sucesso",
-              "schema": {
-                "type": "array",
-                "items": {
-                  "type": "object",
-                  "properties": {
-                    "nome": {
-                      "type": "string",
-                      "example": "R1N1",
-                      "maxLength": 130
-                    },
-                    "ano": {
-                      "type": "string",
-                      "example": "2023",
-                      "maxLength": 130
-                    }
+
+      "post": {
+        "tags": ["Alunos"],
+        "summary": "Adicionar alunos",
+        "description": "Adiciona um novo aluno ao banco de dados",
+        "produces": ["application/json"],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "aluno",
+            "description": "Objeto de aluno para adicionar",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "properties": {
+                "nome": {
+                  "type": "string",
+                  "example": "Laura Xavier"
+                },
+                "email": {
+                  "type": "string",
+                  "example": "laura.ac.xavier@gmail.com"
+                },
+                "telefone": {
+                  "type": "string",
+                  "example": "48-99157-4820"
+                },
+                "media": {
+                  "type": "number",
+                  "format": "float",
+                  "example": 8.5
+                }
+              }
+            }
+          },
+          {
+            "in": "query",
+            "name": "",
+            "description": "Índice da turma à qual o aluno será associado",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "example": 1
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "nome": {
+                    "type": "string",
+                    "example": "Laura Xavier"
+                  },
+                  "email": {
+                    "type": "string",
+                    "example": "laura.ac.xavier@gmail.com"
+                  },
+                  "telefone": {
+                    "type": "string",
+                    "example": "48-99157-4820"
+                  },
+                  "media": {
+                    "type": "float",
+                    "example": 8.5
                   }
                 }
               }
             }
           }
-        },
-  
-        "post": {
-          "summary": "Criar uma nova turma",
-          "tags": ["Turma"],
-          "consumes": ["application/json"],
-          "produces": ["application/json"],
-          "parameters": [
-            {
-              "in": "body",
-              "name": "body",
-              "description": "Informações da turma a ser criada",
-              "required": true,
-              "schema": {
-                "type": "array",
-                "items": {
-                  "type": "object",
-                  "properties": {
-                    "nome": {
-                      "type": "string",
-                      "example": "R1N1",
-                      "maxLength": 130
-                    },
-                    "ano": {
-                      "type": "string",
-                      "example": "2023",
-                      "maxLength": 130
-                    }
-                  }
+        }
+      }
+    },
+
+    "/alunos/{id}": {
+      "get": {
+        "tags": ["Alunos"],
+        "summary": "Obter um aluno pelo ID",
+        "description": "Retorna os detalhes de um aluno específico com base no ID fornecido.",
+        "produces": ["application/json"],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "ID do aluno a ser obtido",
+            "required": true,
+            "type": "integer",
+            "format": "int64"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "nome": {
+                  "type": "string",
+                  "example": "Laura Xavier"
+                },
+                "email": {
+                  "type": "string",
+                  "example": "laura.ac.xavier@gmail.com"
+                },
+                "telefone": {
+                  "type": "string",
+                  "example": "48-99157-4820"
+                },
+                "media": {
+                  "type": "number",
+                  "format": "float",
+                  "example": 8.5
                 }
               }
             }
-          ]
+          },
+          "404": {
+            "description": "Aluno não encontrado"
+          }
         }
       },
-  
-      "/turma/{id}": {
-        "get": {
-          "summary": "Buscar uma turma pelo ID",
-          "tags": ["Turma"],
-          "parameters": [
-            {
-              "in": "path",
-              "name": "id",
-              "description": "ID da turma a ser buscada",
-              "required": true,
+
+      "put": {
+        "summary": "Atualizar os dados de um aluno baseado em seu ID",
+        "tags": ["Alunos"],
+        "description": "Atualiza os dados de um aluno baseado em seu ID",
+        "produces": ["application/json"],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "ID do aluno a ser obtido",
+            "required": true,
+            "schema": {
               "type": "integer",
-              "format": "int64",
-              "example": 1
+              "format": "int64"
             }
-          ],
-          "produces": ["application/json"],
-          "responses": {
-            "200": {
-              "description": "Turma encontrada com sucesso",
-              "schema": {
-                "type": "array",
-                "items": {
-                  "type": "object",
-                  "properties": {
-                    "serie": {
-                      "type": "string",
-                      "example": "9ºA"
-                    }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "nome": {
+                    "type": "string",
+                    "example": "João -> Lucas"
+                  },
+                  "idade": {
+                    "type": "integer",
+                    "example": 25
+                  },
+                  "sexo": {
+                    "type": "string",
+                    "example": "M"
                   }
                 }
               }
-            },
-            "404": {
-              "description": "Turma não encontrada"
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "message": {
+                  "type": "string",
+                  "example": "Aluno não encontrado"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "message": {
+                  "type": "string",
+                  "example": "Algo errado ocorreu"
+                }
+              }
             }
           }
-        },
-  
-        "put": {
-          "summary": "Atualizar uma turma pelo ID",
-          "tags": ["Turma"],
-          "consumes": ["application/json"],
-          "produces": ["application/json"],
-          "parameters": [
-            {
-              "in": "path",
-              "name": "id",
-              "description": "ID da turma a ser atualizada",
-              "required": true,
-              "type": "integer",
-              "format": "int64",
-              "example": 1
-            },
-            {
-              "in": "body",
-              "name": "body",
-              "description": "Informações da turma a ser atualizada",
-              "required": true,
-              "schema": {
+        }
+      },
+
+      "delete": {
+        "summary": "Deletar permanentemente os dados de um aluno baseado em seu ID",
+        "tags": ["Alunos"],
+        "description": "Deleta os dados de um aluno baseado em seu ID",
+        "produces": ["application/json"],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "ID do aluno a ser deletado",
+            "required": true,
+            "type": "integer"
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "Aluno não encontrado"
+          },
+          "404": {
+            "description": "Aluno não encontrado"
+          }
+        }
+      }
+    },
+
+    "/turmas": {
+      "get": {
+        "summary": "Listar todas as turmas",
+        "tags": ["Turmas"],
+        "produces": ["application/json"],
+        "responses": {
+          "200": {
+            "description": "Lista de turmas recuperada com sucesso",
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "nome": {
+                    "type": "string",
+                    "example": "R1N1",
+                    "maxLength": 130
+                  },
+                  "ano": {
+                    "type": "string",
+                    "example": "2023",
+                    "maxLength": 130
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+
+      "post": {
+        "summary": "Criar uma nova turma",
+        "tags": ["Turmas"],
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "Informações da turma a ser criada",
+            "required": true,
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "nome": {
+                    "type": "string",
+                    "example": "R1N1",
+                    "maxLength": 130
+                  },
+                  "ano": {
+                    "type": "string",
+                    "example": "2023",
+                    "maxLength": 130
+                  }
+                }
+              }
+            }
+          }
+        ]
+      }
+    },
+
+    "/turmas/{id}": {
+      "get": {
+        "summary": "Buscar uma turma pelo ID",
+        "tags": ["Turmas"],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "description": "ID da turma a ser buscada",
+            "required": true,
+            "type": "integer",
+            "format": "int64",
+            "example": 1
+          }
+        ],
+        "produces": ["application/json"],
+        "responses": {
+          "200": {
+            "description": "Turma encontrada com sucesso",
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "serie": {
+                    "type": "string",
+                    "example": "9ºA"
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Turma não encontrada"
+          }
+        }
+      },
+
+      "put": {
+        "summary": "Atualizar uma turma pelo ID",
+        "tags": ["Turmas"],
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "description": "ID da turma a ser atualizada",
+            "required": true,
+            "type": "integer",
+            "format": "int64",
+            "example": 1
+          },
+          {
+            "in": "body",
+            "name": "body",
+            "description": "Informações da turma a ser atualizada",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "properties": {
+                "nome": {
+                  "type": "string",
+                  "example": "Nova Turma A"
+                },
+                "ano": {
+                  "type": "string",
+                  "example": "2023"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Turma atualizada com sucesso",
+            "schema": {
+              "type": "array",
+              "items": {
                 "type": "object",
                 "properties": {
                   "nome": {
@@ -348,115 +450,119 @@
                 }
               }
             }
-          ],
-          "responses": {
-            "200": {
-              "description": "Turma atualizada com sucesso",
-              "schema": {
-                "type": "array",
-                "items": {
-                  "type": "object",
-                  "properties": {
-                    "nome": {
-                      "type": "string",
-                      "example": "Nova Turma A"
-                    },
-                    "ano": {
-                      "type": "string",
-                      "example": "2023"
-                    }
+          },
+          "404": {
+            "description": "Turma não encontrada"
+          }
+        }
+      },
+
+      "delete": {
+        "summary": "Excluir uma turma pelo ID",
+        "tags": ["Turmas"],
+        "produces": ["application/json"],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "description": "ID da turma a ser excluída",
+            "required": true,
+            "type": "integer",
+            "format": "int64",
+            "example": 1
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Turma removida com sucesso"
+          },
+          "404": {
+            "description": "Turma não encontrada"
+          }
+        }
+      }
+    },
+
+    "/professores": {
+      "get": {
+        "summary": "Listar todos os professores",
+        "tags": ["Professores"],
+        "description": "Lista todos os professores cadastrados no banco de dados",
+        "produces": ["application/json"],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "nome": {
+                    "type": "string",
+                    "example": "José Almir"
+                  },
+                  "email": {
+                    "type": "string",
+                    "example": "jose.almir@example.com"
+                  },
+                  "telefone": {
+                    "type": "string",
+                    "example": "+55 88 99999-9999"
                   }
                 }
               }
-            },
-            "404": {
-              "description": "Turma não encontrada"
-            }
-          }
-        },
-  
-        "delete": {
-          "summary": "Excluir uma turma pelo ID",
-          "tags": ["Turma"],
-          "produces": ["application/json"],
-          "parameters": [
-            {
-              "in": "path",
-              "name": "id",
-              "description": "ID da turma a ser excluída",
-              "required": true,
-              "type": "integer",
-              "format": "int64",
-              "example": 1
-            }
-          ],
-          "responses": {
-            "200": {
-              "description": "Turma removida com sucesso"
-            },
-            "404": {
-              "description": "Turma não encontrada"
             }
           }
         }
       },
-  
-      "/professor": {
-        "get": {
-          "summary": "Listar todos os professores",
-          "tags": ["Professor"],
-          "description": "Lista todos os professores cadastrados no banco de dados",
-          "produces": ["application/json"],
-          "responses": {
-            "200": {
-              "description": "OK",
-              "schema": {
-                "type": "array",
-                "items": {
-                  "type": "object",
-                  "properties": {
-                    "nome": {
-                      "type": "string",
-                      "example": "José Almir"
-                    },
-                    "email": {
-                      "type": "string",
-                      "example": "jose.almir@example.com"
-                    },
-                    "telefone": {
-                      "type": "string",
-                      "example": "+55 88 99999-9999"
-                    }
-                  }
+
+      "post": {
+        "summary": "Adicionar um novo professor ao banco de dados",
+        "tags": ["Professores"],
+        "description": "Adiciona um novo professor ao banco de dados",
+        "produces": ["application/json"],
+        "parameters": [
+          {
+            "name": "turmaId",
+            "in": "path",
+            "description": "ID da turma à qual o professor será adicionado",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64",
+              "example": 1
+            }
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "description": "Dados do novo professor",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "properties": {
+                "nome": {
+                  "type": "string",
+                  "example": "João Chagas"
+                },
+                "email": {
+                  "type": "string",
+                  "example": "joaochagas@example.com"
+                },
+                "telefone": {
+                  "type": "string",
+                  "example": "+55 99 99999-9999"
                 }
               }
             }
           }
-        },
-  
-        "post": {
-          "summary": "Adicionar um novo professor ao banco de dados",
-          "tags": ["Professor"],
-          "description": "Adiciona um novo professor ao banco de dados",
-          "produces": ["application/json"],
-          "parameters": [
-            {
-              "name": "turmaId",
-              "in": "path",
-              "description": "ID da turma à qual o professor será adicionado",
-              "required": true,
-              "schema": {
-                "type": "integer",
-                "format": "int64",
-                "example": 1
-              }
-            },
-            {
-              "name": "body",
-              "in": "body",
-              "description": "Dados do novo professor",
-              "required": true,
-              "schema": {
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "type": "array",
+              "items": {
                 "type": "object",
                 "properties": {
                   "nome": {
@@ -474,230 +580,205 @@
                 }
               }
             }
-          ],
-          "responses": {
-            "200": {
-              "description": "OK",
+          }
+        },
+        "400": {
+          "description": "Not Found",
+          "content": {
+            "application/json": {
               "schema": {
-                "type": "array",
-                "items": {
-                  "type": "object",
-                  "properties": {
-                    "nome": {
-                      "type": "string",
-                      "example": "João Chagas"
-                    },
-                    "email": {
-                      "type": "string",
-                      "example": "joaochagas@example.com"
-                    },
-                    "telefone": {
-                      "type": "string",
-                      "example": "+55 99 99999-9999"
-                    }
+                "type": "object",
+                "properties": {
+                  "message": {
+                    "type": "string",
+                    "example": "Turma não encontrada"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "500": {
+          "description": "Internal Server Error",
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "message": {
+                    "type": "string",
+                    "example": "Algo errado ocorreu"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+
+    "/professores/:id": {
+      "get": {
+        "summary": "Buscar professor por ID",
+        "tags": ["Professores"],
+        "description": "Busca um professor específico com base em seu ID",
+        "produces": ["application/json"],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "ID do professor a ser buscado",
+            "required": true,
+            "type": "integer",
+            "format": "int64"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "nome": {
+                    "type": "string",
+                    "example": "João Chagas"
+                  },
+                  "email": {
+                    "type": "string",
+                    "example": "joaochagas@example.com"
+                  },
+                  "telefone": {
+                    "type": "string",
+                    "example": "+55 99 99999-9999"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+
+      "put": {
+        "summary": "Atualizar dados do professor",
+        "tags": ["Professores"],
+        "description": "Atualiza os dados de um professor específico pelo ID",
+        "produces": ["application/json"],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "ID do professor a ser atualizado",
+            "required": true,
+            "type": "integer",
+            "format": "int64"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "description": "Dados do professor a serem atualizados",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "properties": {
+                "nome": {
+                  "type": "string",
+                  "example": "João Chagas"
+                },
+                "email": {
+                  "type": "string",
+                  "example": "joaochagas@example.com"
+                },
+                "telefone": {
+                  "type": "string",
+                  "example": "+55 99 99999-9999"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Professor atualizado com sucesso",
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "nome": {
+                    "type": "string",
+                    "example": "João Chagas"
+                  },
+                  "email": {
+                    "type": "string",
+                    "example": "joaochagas@example.com"
+                  },
+                  "telefone": {
+                    "type": "string",
+                    "example": "+55 99 99999-9999"
                   }
                 }
               }
             }
           },
-          "400": {
-            "description": "Not Found",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object",
-                  "properties": {
-                    "message": {
-                      "type": "string",
-                      "example": "Turma não encontrada"
-                    }
-                  }
+          "404": {
+            "description": "Não encontrado"
+          },
+          "500": {
+            "description": "Um erro aconteceu"
+          }
+        }
+      },
+
+      "delete": {
+        "summary": "Deletar professor do banco de dados",
+        "tags": ["Professores"],
+        "description": "Remove um professor específico pelo ID do banco de dados",
+        "produces": ["application/json"],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "ID do professor a ser deletado",
+            "required": true,
+            "type": "integer",
+            "format": "int64"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "message": {
+                  "type": "string",
+                  "example": "Professor removido"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Professor não encontrado",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "message": {
+                  "type": "string",
+                  "example": "Professor não encontrado"
                 }
               }
             }
           },
           "500": {
-            "description": "Internal Server Error",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object",
-                  "properties": {
-                    "message": {
-                      "type": "string",
-                      "example": "Algo errado ocorreu"
-                    }
-                  }
-                }
-              }
-            }
-          }
-        }
-      },
-  
-      "/professor/:id": {
-        "get": {
-          "summary": "Buscar professor por ID",
-          "tags": ["Professor"],
-          "description": "Busca um professor específico com base em seu ID",
-          "produces": ["application/json"],
-          "parameters": [
-            {
-              "name": "id",
-              "in": "path",
-              "description": "ID do professor a ser buscado",
-              "required": true,
-              "type": "integer",
-              "format": "int64"
-            }
-          ],
-          "responses": {
-            "200": {
-              "description": "OK",
-              "schema": {
-                "type": "array",
-                "items": {
-                  "type": "object",
-                  "properties": {
-                    "nome": {
-                      "type": "string",
-                      "example": "João Chagas"
-                    },
-                    "email": {
-                      "type": "string",
-                      "example": "joaochagas@example.com"
-                    },
-                    "telefone": {
-                      "type": "string",
-                      "example": "+55 99 99999-9999"
-                    }
-                  }
-                }
-              }
-            }
-          }
-        },
-  
-        "put": {
-          "summary": "Atualizar dados do professor",
-          "tags": ["Professor"],
-          "description": "Atualiza os dados de um professor específico pelo ID",
-          "produces": ["application/json"],
-          "parameters": [
-            {
-              "name": "id",
-              "in": "path",
-              "description": "ID do professor a ser atualizado",
-              "required": true,
-              "type": "integer",
-              "format": "int64"
-            },
-            {
-              "name": "body",
-              "in": "body",
-              "description": "Dados do professor a serem atualizados",
-              "required": true,
-              "schema": {
-                "type": "object",
-                "properties": {
-                  "nome": {
-                    "type": "string",
-                    "example": "João Chagas"
-                  },
-                  "email": {
-                    "type": "string",
-                    "example": "joaochagas@example.com"
-                  },
-                  "telefone": {
-                    "type": "string",
-                    "example": "+55 99 99999-9999"
-                  }
-                }
-              }
-            }
-          ],
-          "responses": {
-            "200": {
-              "description": "Professor atualizado com sucesso",
-              "schema": {
-                "type": "array",
-                "items": {
-                  "type": "object",
-                  "properties": {
-                    "nome": {
-                      "type": "string",
-                      "example": "João Chagas"
-                    },
-                    "email": {
-                      "type": "string",
-                      "example": "joaochagas@example.com"
-                    },
-                    "telefone": {
-                      "type": "string",
-                      "example": "+55 99 99999-9999"
-                    }
-                  }
-                }
-              }
-            },
-            "404": {
-              "description": "Não encontrado"
-            },
-            "500": {
-              "description": "Um erro aconteceu"
-            }
-          }
-        },
-  
-        "delete": {
-          "summary": "Deletar professor do banco de dados",
-          "tags": ["Professor"],
-          "description": "Remove um professor específico pelo ID do banco de dados",
-          "produces": ["application/json"],
-          "parameters": [
-            {
-              "name": "id",
-              "in": "path",
-              "description": "ID do professor a ser deletado",
-              "required": true,
-              "type": "integer",
-              "format": "int64"
-            }
-          ],
-          "responses": {
-            "200": {
-              "description": "OK",
-              "schema": {
-                "type": "object",
-                "properties": {
-                  "message": {
-                    "type": "string",
-                    "example": "Professor removido"
-                  }
-                }
-              }
-            },
-            "404": {
-              "description": "Professor não encontrado",
-              "schema": {
-                "type": "object",
-                "properties": {
-                  "message": {
-                    "type": "string",
-                    "example": "Professor não encontrado"
-                  }
-                }
-              }
-            },
-            "500": {
-              "description": "Erro interno do servidor",
-              "schema": {
-                "type": "object",
-                "properties": {
-                  "message": {
-                    "type": "string",
-                    "example": "Um erro aconteceu"
-                  }
+            "description": "Erro interno do servidor",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "message": {
+                  "type": "string",
+                  "example": "Um erro aconteceu"
                 }
               }
             }
@@ -706,4 +787,4 @@
       }
     }
   }
-  
+}

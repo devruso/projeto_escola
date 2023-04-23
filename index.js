@@ -3,7 +3,6 @@ require("dotenv").config();
 
 const express = require("express");
 const { connection, authenticate } = require("./database/database");
-const morgan = require("morgan");
 
 // Configuração DB
 authenticate(connection);
